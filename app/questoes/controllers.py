@@ -20,24 +20,15 @@ class QuestoesList(MethodView):
 class QuestoesDetail(MethodView):
     def post(self, numero_questao):
         data = request.get_json(force=True)
-        print(data)
-        print("oi")
-        print(data['resposta'])
-        print("oi")
+
         schema = filters.getSchema(
             qs = request.args,
             schema_cls=QuestoesSchema,
             many=False
         )
         questao = Questoes.query.filter_by(numero=numero_questao).first_or_404()
-        print(questao)
         gabarito = schema.dump(questao)
-        print(gabarito)
-        print("oi")
-        print(gabarito["resposta"])
-        print("oi")
-        print(gabarito['resposta'])
-        print("oi")
+  
         if (data['resposta'] == gabarito["resposta"]):
                 return {"resultado": "certo"}, 200
         return {"resultado": "errado"}, 200
