@@ -27,17 +27,16 @@ class QuestoesDetail(MethodView):
         )
         questao = Questoes.query.filter_by(numero=numero_questao).first_or_404()
         gabarito = schema.dump(questao)
-        print (gabarito)
-        print (data)
         if (data["resposta"] == gabarito["resposta"]):
-                return {"resultado": "certo"}
-        return {"resultado": "errado"}
+                return {"resultado": "certo"}, 200
+        return {"resultado": "errado"}, 200
 
     def get(self, numero_questao):
         schema = filters.getSchema(
             qs = request.args,
             schema_cls=QuestoesSchema,
-            many=False
+            many=False,
+            rel=['resposta', 'create_time', 'update_time']
         )
         questao = Questoes.query.filter_by(numero=numero_questao).first_or_404()
         return schema.dump(questao), 200
@@ -52,8 +51,9 @@ class QuestaoAleatoria(MethodView):
         schema = filters.getSchema(
             qs=request.args,
             schema_cls=QuestoesSchema,
-            many=True
+            many=True,
+            rel=['resposta', 'create_time', 'update_time']
         )
         questoes = schema.dump(Questoes.query.all())
         questao = questoes[random.randint(0, len(questoes) - 1)]
-        return questao
+        return questao, 200
