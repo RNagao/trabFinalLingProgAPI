@@ -12,6 +12,7 @@ flask-migrate = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 gunicorn = "*"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.9"
