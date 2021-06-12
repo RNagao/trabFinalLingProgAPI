@@ -1,5 +1,6 @@
 from flask import request, jsonify
 from flask.views import MethodView
+import random
 
 from .models import Questoes
 from .schemas import QuestoesSchema
@@ -48,4 +49,11 @@ class QuestoesDetail(MethodView):
 
 class QuestaoAleatoria(MethodView):
     def get(self):
-        return
+        schema = filters.getSchema(
+            qs=request.args,
+            schema_cls=QuestoesSchema,
+            many=True
+        )
+        questoes = schema.dump(Questoes.query.all())
+        questao = questoes[random.randint(0, len(questoes) - 1)]
+        return questao
