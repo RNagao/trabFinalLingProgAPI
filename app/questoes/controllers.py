@@ -10,7 +10,7 @@ class QuestoesList(MethodView):
     def post(self):
         data = request.json
         schema = QuestoesSchema()
-
+        print(data)
         questao = schema.load(data)
 
         questao.save()
