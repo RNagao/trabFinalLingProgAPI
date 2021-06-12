@@ -22,7 +22,7 @@ class QuestoesDetail(MethodView):
         data = request.get_json(force=True)
         print(data)
         print("oi")
-        print(data["resposta"])
+        print(data['resposta'])
         print("oi")
         schema = filters.getSchema(
             qs = request.args,
