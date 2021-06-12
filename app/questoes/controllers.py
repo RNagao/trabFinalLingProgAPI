@@ -8,7 +8,7 @@ from ..utils.filters import filters
 
 class QuestoesList(MethodView):
     def post(self):
-        data = request.json
+        data = request.data
         schema = QuestoesSchema()
         print(data)
         questao = schema.load(data)
@@ -19,7 +19,7 @@ class QuestoesList(MethodView):
 
 class QuestoesDetail(MethodView):
     def post(self, numero_questao):
-        data = request.json
+        data = request.data
         print(data)
         schema = filters.getSchema(
             qs = request.args,
