@@ -18,7 +18,19 @@ class QuestoesList(MethodView):
 
 class QuestoesDetail(MethodView):
     def post(self, numero_questao):
-        return 
+        data = request.json
+        schema = filters.getSchema(
+            qs = request.args,
+            schema_cls=QuestoesSchema,
+            many=False
+        )
+        questao = Questoes.query.filter_by(numero=numero_questao).first_or_404()
+        gabarito = schema.dump(questao)
+        print (gabarito)
+        print (data)
+        if (data["resposta"] == gabarito["resposta"]):
+                return {"resultado": "certo"}
+        return {"resultado": "errado"}
 
     def get(self, numero_questao):
         schema = filters.getSchema(
@@ -26,11 +38,11 @@ class QuestoesDetail(MethodView):
             schema_cls=QuestoesSchema,
             many=False
         )
-        questao = Questoes.query.filter_by(numero_questao).first_or_404()
+        questao = Questoes.query.filter_by(numero=numero_questao).first_or_404()
         return schema.dump(questao), 200
 
     def delete(self, numero_questao):
-        questao = Questoes.query.filter_by(numero_questao).first_or_404()
+        questao = Questoes.query.filter_by(numero=numero_questao).first_or_404()
         questao.delete(questao)
         return {}, 204
 

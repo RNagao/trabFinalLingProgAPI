@@ -8,5 +8,5 @@ questoes_api.add_url_rule(
 )
 
 questoes_api.add_url_rule(
-    '/questoes/<int:numero_questao>/', view_func=QuestoesDetail.as_view('questoes_detail'), methods=['GET', 'DELETE']
+    '/questoes/<int:numero_questao>/', view_func=QuestoesDetail.as_view('questoes_detail'), methods=['GET', 'DELETE', 'POST']
 )
