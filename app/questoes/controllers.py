@@ -20,6 +20,7 @@ class QuestoesList(MethodView):
 class QuestoesDetail(MethodView):
     def post(self, numero_questao):
         data = request.json
+        print(data)
         schema = filters.getSchema(
             qs = request.args,
             schema_cls=QuestoesSchema,
