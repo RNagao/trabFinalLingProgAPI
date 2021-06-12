@@ -38,7 +38,7 @@ class QuestoesDetail(MethodView):
         print("oi")
         print(gabarito['resposta'])
         print("oi")
-        if (data["resposta"] == gabarito["resposta"]):
+        if (data['resposta'] == gabarito["resposta"]):
                 return {"resultado": "certo"}, 200
         return {"resultado": "errado"}, 200
 
